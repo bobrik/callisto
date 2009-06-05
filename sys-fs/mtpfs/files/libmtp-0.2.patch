@@ -1,0 +1,53 @@
+Только в mtpfs-0.9.new: config.log
+Только в mtpfs-0.9.new: config.status
+Только в mtpfs-0.9.new: .deps
+Только в mtpfs-0.9.new: Makefile
+Только в mtpfs-0.9.new: mtpfs
+diff -rup mtpfs-0.9/mtpfs.c mtpfs-0.9.new/mtpfs.c
+--- mtpfs-0.9/mtpfs.c	2008-08-05 08:29:29.000000000 +0300
++++ mtpfs-0.9.new/mtpfs.c	2008-12-25 23:52:16.000000000 +0200
+@@ -188,7 +188,7 @@ save_playlist (const char *path, struct 
+         ret = LIBMTP_Update_Playlist(device,playlist);
+     } else {
+         DBG("New playlist");
+-        ret = LIBMTP_Create_New_Playlist(device,playlist);
++        ret = LIBMTP_Create_New_Playlist(device,playlist,0);
+     }
+     playlists_changed=TRUE;
+     return ret;
+@@ -460,8 +460,6 @@ mtpfs_release (const char *path, struct 
+                 genfile->genre = getGenre (tag);
+                 genfile->date = getYear (tag);
+                 genfile->usecount = 0;
+-                genfile->parent_id = 0;
+-                genfile->storage_id = 0;
+ 
+                 /* If there is a songlength tag it will take
+                  * precedence over any length calculated from
+@@ -499,7 +497,7 @@ mtpfs_release (const char *path, struct 
+                 //DBG("%d:%d:%d",fi->fh,genfile->duration,genfile->filesize);
+                 ret =
+                     LIBMTP_Send_Track_From_File_Descriptor (device, fi->fh,
+-						genfile, NULL, NULL);
++						genfile, NULL, NULL, parent_id);
+                 id3_file_close (id3_fh);
+                 LIBMTP_destroy_track_t (genfile);
+                 DBG("Sent TRACK %s",path);
+@@ -513,7 +511,7 @@ mtpfs_release (const char *path, struct 
+     
+                 ret =
+                     LIBMTP_Send_File_From_File_Descriptor (device, fi->fh,
+-						genfile, NULL, NULL);
++						genfile, NULL, NULL, parent_id);
+                 LIBMTP_destroy_file_t (genfile);
+                 DBG("Sent FILE %s",path);
+             }
+@@ -987,7 +985,7 @@ mtpfs_mkdir_real (const char *path, mode
+             }
+         }
+         DBG("%s:%s:%d", filename, directory, parent_id);
+-        ret = LIBMTP_Create_Folder (device, filename, parent_id,0);
++        ret = LIBMTP_Create_Folder (device, filename, parent_id);
+         g_strfreev (fields);
+ 		g_free (directory);
+ 		g_free (filename);
