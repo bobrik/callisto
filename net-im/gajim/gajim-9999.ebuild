@@ -2,11 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit multilib python eutils subversion
+inherit multilib python eutils mercurial
 
-ESVN_REPO_URI="svn://svn.gajim.org/gajim/trunk"
-ESVN_PROJECT="gajim"
-ESVN_BOOTSTRAP="autogen.sh"
+EHG_REPO_URI="http://hg.gajim.org/gajim"
 
 DESCRIPTION="Jabber client written in PyGTK"
 HOMEPAGE="http://www.gajim.org/"
@@ -18,7 +16,7 @@ KEYWORDS="~alpha ~amd64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
 IUSE="avahi dbus gnome idle libnotify nls spell srv trayicon X xhtml"
 
 DEPEND="|| (
-		( <dev-lang/python-2.5 dev-python/pysqlite )
+		( <dev-lang/python-2.5[sqlite=] dev-python/pysqlite )
 		>=dev-lang/python-2.5
 	)
 	dev-python/pygtk
@@ -48,11 +46,6 @@ pkg_setup() {
 			eerror "The dbus USE flag is required for avahi support"
 			die "USE=\"dbus\" needed for avahi support"
 		fi
-	else
-		if has_version "<sys-apps/dbus-0.90" && ! built_with_use sys-apps/dbus python; then
-				eerror "Please rebuild dbus with USE=\"python\""
-				die "USE=\"python\" needed for dbus"
-		fi
 	fi
 
 	if use avahi; then
@@ -63,13 +56,12 @@ pkg_setup() {
 		fi
 	fi
 
-	if has_version ">=dev-lang/python-2.5" && ! built_with_use dev-lang/python sqlite; then
-		eerror "Please rebuild python with USE=\"sqlite\""
-		die "USE=\"sqlite\" needed for python"
-	fi
 }
 
 src_compile() {
+
+	cd ${WORKDIR}/${PN}
+	        ./autogen.sh
 	local myconf
 
 	if ! use gnome; then
@@ -90,10 +82,11 @@ src_compile() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die "emake install failed"
+	cd ${WORKDIR}/${PN}
+        make DESTDIR="${D}" install || die
+        dodoc AUTHORS NEWS README
 
-	rm "${D}/usr/share/doc/${PF}/README.html"
-	dohtml README.html
+        dodoc "${WORKDIR}"/README
 }
 
 pkg_postinst() {
