@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="2"
+
 inherit multilib python eutils mercurial
 
 EHG_REPO_URI="http://hg.gajim.org/gajim"
@@ -36,6 +38,10 @@ RDEPEND="gnome? ( dev-python/gnome-python-extras
 	avahi? ( net-dns/avahi )
 	dev-python/pyopenssl"
 
+S="${WORKDIR}/${PN}"
+
+DOCS="AUTHORS NEWS README"
+
 pkg_setup() {
 	if ! use dbus; then
 		if use libnotify; then
@@ -58,41 +64,38 @@ pkg_setup() {
 
 }
 
-src_compile() {
+src_prepare() {
+	epatch "${FILESDIR}/autotools_install_pyfiles_in_pkglibdir.patch"
+	epatch "${FILESDIR}/build_remote_control.patch"
+	epatch "${FILESDIR}/dont_run_configure_in_autogen.patch"
 
-	cd ${WORKDIR}/${PN}
-	        ./autogen.sh
+	./autogen.sh
+}
+
+src_configure() {
 	local myconf
 
 	if ! use gnome; then
 		myconf="${myconf} $(use_enable trayicon)"
-		myconf="${myconf} $(use_enable idle)"
 	fi
 
 	econf $(use_enable nls) \
-		$(use_enable spell gtkspell) \
-		$(use_enable dbus remote) \
 		$(use_with X x) \
 		--docdir="/usr/share/doc/${PF}" \
 		--prefix="/usr" \
-		--libdir="/usr/$(get_libdir)" \
+		--libdir="$(python_get_sitedir)" \
 		${myconf} || die "econf failed"
-
-	emake || die "emake failed"
 }
 
 src_install() {
-	cd ${WORKDIR}/${PN}
-        make DESTDIR="${D}" install || die
-        dodoc AUTHORS NEWS README
-
-        dodoc "${WORKDIR}"/README
+	make DESTDIR="${D}" install || die
+	dodoc AUTHORS NEWS README
 }
 
 pkg_postinst() {
-	python_mod_optimize /usr/share/gajim/
+	python_mod_optimize $(python_get_sitedir)/gajim/
 }
 
 pkg_postrm() {
-	python_mod_cleanup /usr/share/gajim/
+	python_mod_cleanup $(python_get_sitedir)/gajim/
 }

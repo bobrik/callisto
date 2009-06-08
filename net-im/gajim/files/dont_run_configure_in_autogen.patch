@@ -1,0 +1,10 @@
+diff -r ac60d4be68b7 autogen.sh
+--- a/autogen.sh	Sun Jun 07 20:59:04 2009 +0200
++++ b/autogen.sh	Mon Jun 08 05:18:17 2009 +0300
+@@ -26,5 +26,4 @@
+   && $LIBTOOLIZE --copy --force --automake \
+   && autoheader \
+   && autoconf  \
+-  && automake ${AM_ARGS} \
+-  && ./configure ${CONF_ARGS} $@
++  && automake ${AM_ARGS}
