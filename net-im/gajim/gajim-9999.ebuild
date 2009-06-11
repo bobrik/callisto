@@ -7,6 +7,7 @@ EAPI="2"
 inherit multilib python eutils mercurial
 
 EHG_REPO_URI="http://hg.gajim.org/gajim"
+EHG_REVISION="default"
 
 DESCRIPTION="Jabber client written in PyGTK"
 HOMEPAGE="http://www.gajim.org/"
@@ -66,7 +67,6 @@ pkg_setup() {
 
 src_prepare() {
 	epatch "${FILESDIR}/autotools_install_pyfiles_in_pkglibdir.patch"
-	epatch "${FILESDIR}/build_remote_control.patch"
 	epatch "${FILESDIR}/dont_run_configure_in_autogen.patch"
 
 	./autogen.sh
