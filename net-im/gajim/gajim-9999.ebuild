@@ -66,6 +66,7 @@ pkg_setup() {
 }
 
 src_prepare() {
+	epatch "${FILESDIR}/autotools_install_pyfiles_in_pkglibdir.patch"
 	epatch "${FILESDIR}/dont_run_configure_in_autogen.patch"
 
 	./autogen.sh
