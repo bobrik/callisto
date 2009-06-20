@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<herd>no-herd</herd>
+	<maintainer>
+		<email>ibobrik@gmail.com</email>
+		<name>Ivan Babrou</name>
+	</maintainer>
+	<use>
+		<flag name='tty'>Adds support for tty frontend</flag>
+		<flag name='cmd'>Adds support for cli frontend</flag>
+		<flag name='alt-gtk-layout'>Adds patch to make interface better</flag>
+	</use>
+</pkgmetadata>

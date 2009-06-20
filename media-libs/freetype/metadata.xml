@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer>
+		<email>ibobrik@gmail.com</email>
+		<name>Ivan Babrou</name>
+	</maintainer>
+	<herd>fonts</herd>
+	<use>
+		<flag name="fontforge">Install internal headers required for truetype
+		debugger in <pkg>media-gfx/fontforge</pkg> (built with
+		USE=fontforge-debugger)</flag>
+		<flag name="kpathsea">Enable TeX support (ttf2pk and ttf2pfb)</flag>
+		<flag name="utils">Install utilities and examples from ft2demos</flag>
+		<flag name="cleartype">Enable patches for Cleartype-like fonts
+		(you need<pkg>x11-libs/libXft</pkg> from callisto overlay)</flag>
+	</use>
+</pkgmetadata>
