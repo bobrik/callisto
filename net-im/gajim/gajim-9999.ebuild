@@ -37,6 +37,7 @@ RDEPEND="gnome? ( dev-python/gnome-python-extras
 	idle? ( x11-libs/libXScrnSaver )
 	spell? ( app-text/gtkspell )
 	avahi? ( net-dns/avahi )
+	asyncns? ( dev-python/libasyncns-python )
 	dev-python/pyopenssl"
 
 S="${WORKDIR}/${PN}"
