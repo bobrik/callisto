@@ -20,16 +20,14 @@ RDEPEND="dev-python/setuptools"
 
 
 src_compile() {
-	cd ${WORKDIR}/${P}
-	if ! use gtk; then
-		rm ${WORKDIR}/${P}/mitterlib/ui/ui_pygtk.py
+	cd ${WORKDIR}
+	use gtk || rm "${WORKDIR}/${P}/mitterlib/ui/ui_pygtk.py"
+	use tty || rm "${WORKDIR}/${P}/mitterlib/ui/ui_tty.py"
+	use cmd || rm "${WORKDIR}/${P}/mitterlib/ui/ui_cmd.py"
+	if use alt-gtk-layout && use gtk; then
+		epatch ${FILESDIR}/mitter-nice-update.diff
 	fi
-	if ! use tty; then
-		rm ${WORKDIR}/${P}/mitterlib/ui/ui_tty.py
-	fi
-	if ! use cmd; then
-		rm ${WORKDIR}/${P}/mitterlib/ui/ui_cmd.py
-	fi
+	(! use gtk) && (! use tty) && (! use cmd) && die "You should select something interface"
 }
 
 src_install() {
