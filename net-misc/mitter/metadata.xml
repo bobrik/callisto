@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>no-herd</herd>
+	<herd>callisto</herd>
 	<maintainer>
-		<email>ibobrik@gmail.com</email>
-		<name>Ivan Babrou</name>
+		<email>psavichev@gmail.com</email>
+		<name>Peter Savichev</name>
 	</maintainer>
 	<use>
 		<flag name='tty'>Adds support for tty frontend</flag>

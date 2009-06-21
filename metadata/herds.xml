@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE herds SYSTEM "http://www.gentoo.org/dtd/herds.dtd">
+<?xml-stylesheet href="/xsl/herds.xsl" type="text/xsl" ?>
+<?xml-stylesheet href="/xsl/guide.xsl" type="text/xsl" ?>
+<herds>
+	<herd>
+			<name>callisto</name>
+			<email>ibobrik@gmail.com</email>
+			<description>Packages from callisto overlay</description>
+			<maintainer>
+					<email>ibobrik@gmail.com</email>
+					<name>Ivan Babrou</name>
+			</maintainer>
+	</herd>
+</herds>

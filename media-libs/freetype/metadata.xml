@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<maintainer>
-		<email>ibobrik@gmail.com</email>
-		<name>Ivan Babrou</name>
-	</maintainer>
-	<herd>fonts</herd>
+	<herd>callisto</herd>
 	<use>
 		<flag name="fontforge">Install internal headers required for truetype
 		debugger in <pkg>media-gfx/fontforge</pkg> (built with
