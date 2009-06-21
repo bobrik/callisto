@@ -1,0 +1,148 @@
+# Copyright 1999-2009 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/x11-misc/googleearth/googleearth-5.0.11337.1968_beta.ebuild,v 1.1 2009/02/08 14:36:06 caster Exp $
+
+EAPI=2
+
+inherit eutils fdo-mime
+
+DESCRIPTION="A 3D interface to the planet"
+HOMEPAGE="http://earth.google.com/"
+SRC_URI="http://dl.google.com/earth/client/current/GoogleEarthLinux.bin
+			-> GoogleEarthLinux-${PV}.bin"
+
+LICENSE="googleearth MIT X11 SGI-B-1.1 openssl as-is ZLIB"
+SLOT="0"
+KEYWORDS="~amd64 ~x86"
+RESTRICT="mirror strip"
+IUSE="curl gcc icu mesa qt4 zlib"
+
+RDEPEND="x86? (
+	dev-libs/openssl
+	media-libs/fontconfig
+	media-libs/freetype
+	virtual/opengl
+	x11-libs/libICE
+	x11-libs/libSM
+	x11-libs/libX11
+	x11-libs/libXcursor
+	x11-libs/libXext
+	x11-libs/libXft
+	x11-libs/libXinerama
+	x11-libs/libXrender
+		curl? ( >=net-misc/curl-7.19.4 )
+		qt4? ( >=x11-libs/qt-core-4.4.2
+				>=x11-libs/qt-gui-4.4.2
+				>=x11-libs/qt-webkit-4.4.2 )
+		mesa? ( >=media-libs/mesa-6.5.2 )
+		gcc? ( >=sys-devel/gcc-4.3.3 )
+		icu? ( >=dev-libs/icu-3.8.1 )
+		zlib? ( >=sys-libs/zlib-1.2.3 ) )
+	amd64? (
+	app-emulation/emul-linux-x86-xlibs
+	app-emulation/emul-linux-x86-baselibs
+	|| (
+		>=app-emulation/emul-linux-x86-xlibs-7.0
+		x11-drivers/nvidia-drivers
+		<x11-drivers/ati-drivers-8.28.8 ) )
+	media-fonts/ttf-bitstream-vera"
+
+S="${WORKDIR}"
+
+# `es` два в /opt/googleearth/lang: `es` и `es-419`
+LANGS="ad ae af ag ai al am an ao aq ar as at au aw ax az ba bb bd be bf bg bh bi bj bm bn bo br bs bt bv bw by bz ca cc cd cf cg ch ci ck cl cm cn co cr cs cu cv cx cy cz da de dj dk dm do dz ec ee eg eh el er es et fi fil fj fk fm fo fr ga gb gd ge gf gg gh gi gl gm gn gp gq gr gs gt gu gw gy he hi hk hm hn hr ht hu id ie il im in io iq ir is it ja je jm jo jp ke kg kh ki km kn ko kp kr kw ky kz la lb lc li lk lr ls lt lu lv ly ma mc md me mg mh mk ml mm mn mo mp mq mr ms mt mu mv mw mx my mz na nc ne nf ng ni nl no np nr nu nz om pa pe pf pg ph pk pl pm pn pr ps pt-PT pt pw py qa re ro rs ru rw sa sb sc sd se sg sh si sj sk sl sm sn so sr st sv sy sz tc td tf tg th tj tk tl tm tn to tr tt tv tw tz ua ug uk um uy uz va vc ve vg vi vn vu wf ws ye yt za zh-Hans zh-Hant zm zw"
+for lng in ${LANGS} ; do
+	IUSE="${IUSE} linguas_${lng}"
+done
+
+src_unpack() {
+	unpack_makeself
+	# make the postinst script only create the files; it's  installation
+	# are too complicated and inserting them ourselves is easier than
+	# hacking around it
+	sed -i -e 's:$SETUP_INSTALLPATH/::' \
+		-e 's:$SETUP_INSTALLPATH:1:' \
+		-e "s:^xdg-desktop-icon.*$::" \
+		-e "s:^xdg-desktop-menu.*$::" \
+		-e "s:^xdg-mime.*$::" postinstall.sh
+}
+
+src_install() {
+	make_wrapper ${PN} ./${PN} /opt/${PN} . || die "make_wrapper failed"
+	./postinstall.sh
+	insinto /usr/share/mime/packages
+	doins ${PN}-mimetypes.xml
+	domenu Google-${PN}.desktop
+	doicon ${PN}-icon.png
+	dodoc README.linux
+
+	cd bin
+	tar xf "${WORKDIR}"/${PN}-linux-x86.tar
+	exeinto /opt/${PN}
+	doexe *
+
+	cd "${D}"/opt/${PN}
+	tar xf "${WORKDIR}"/${PN}-data.tar
+
+	# use system libcrypto, bundled one doesn't work with system libssl
+	rm libcrypto.so.*
+	
+	if use curl ; then
+		ln -svf /usr/lib/libcurl.so.4 libcurl.so.4
+	fi
+	if use qt4 ; then
+		ln -svf /usr/lib/qt4/libQtCore.so.4 libQtCore.so.4
+		ln -svf /usr/lib/qt4/libQtNetwork.so.4 libQtNetwork.so.4
+		ln -svf /usr/lib/qt4/libQtGui.so.4 libQtGui.so.4
+		ln -svf /usr/lib/qt4/libQtWebKit.so.4 libQtWebKit.so.4
+	fi
+	if use mesa ; then
+		ln -svf /usr/lib/libGLU.so.1 libGLU.so.1
+	fi
+	if use gcc ; then
+		ln -svf /usr/lib/gcc/i686-pc-linux-gnu/4.3.3/libgcc_s.so.1 libgcc_s.so.1
+		ln -svf /usr/lib/gcc/i686-pc-linux-gnu/4.3.3/libstdc++.so.6 libstdc++.so.6
+	fi
+	if use icu ; then
+		ln -svf /usr/lib/libicudata.so.38 libicudata.so.38
+		ln -svf /usr/lib/libicuuc.so.38 libicuuc.so.38
+	fi
+	if use zlib ; then
+		ln -svf /lib/libz.so.1 libz.so.1
+	fi
+	
+	# make sure we install with correct permissions
+	fowners -R root:root /opt/${PN}
+	fperms -R a-x,a+X /opt/googleearth/{xml,resources}
+}
+
+pkg_preinst() {
+	for lng in ${LANGS} ; do
+		if ! use linguas_${lng} ; then
+			if [[ ${lng} = "es" ]] ; then
+				rm -vf ${D}/opt/${PN}/lang/${lng}*.qm
+			else
+				if [[ -f ${D}/opt/${PN}/lang/${lng}.qm ]] ; then
+					rm -vf ${D}/opt/${PN}/lang/${lng}.qm
+				fi
+			fi
+			if [[ -f ${D}/opt/${PN}/resources/${lng}.country ]] ; then
+				rm -vf ${D}/opt/${PN}/resources/${lng}.country
+			fi
+			if [[ -d ${D}/opt/${PN}/resources/${lng}.country ]] ; then
+				rm -rvf ${D}/opt/${PN}/resources/${lng}.country
+			fi
+			if [[ -f ${D}/opt/${PN}/resources/${lng}.locale ]] ; then
+				rm -vf ${D}/opt/${PN}/resources/${lng}.locale
+			fi
+			if [[ -d ${D}/opt/${PN}/resources/${lng}.locale ]] ; then
+				rm -rvf ${D}/opt/${PN}/resources/${lng}.locale
+			fi
+		fi
+	done
+}
+
+pkg_postinst() {
+	fdo-mime_desktop_database_update
+	fdo-mime_mime_database_update
+}
