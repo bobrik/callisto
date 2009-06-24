@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>callisto</herd>
+	<herd>no-herd</herd>
 	<maintainer>
 		<email>psavichev@gmail.com</email>
 		<name>Peter Savichev</name>
 	</maintainer>
+		<flag name='ekb'>Adds Ekaterinburg's maps pack</flag>
+		<flag name='astr'>Adds Astrakhan's maps pack</flag>
+		<flag name='barn'>Adds Barnaul's maps pack</flag>
+		<flag name='biysk'>Adds Biysk's maps pack</flag>
+		<flag name='irk'>Adds Irkutsk's maps pack</flag>
+		<flag name='kaz'>Adds Kazan's maps pack</flag>
+		<flag name='kem'>Adds Kemerovo's maps pack</flag>
+		<flag name='kras'>Adds Krasnoyarsk's maps pack</flag>
+		<flag name='kur'>Adds Kurgan's maps pack</flag>
+		<flag name='nvar'>Adds Nizhnevartovsk's maps pack</flag>
+		<flag name='nnov'>Adds N_Novgorod's maps pack</flag>
+		<flag name='nkuz'>Adds Novokuznetsk's maps pack</flag>
+		<flag name='nsib'>Adds Novosibirsk's maps pack</flag>
+		<flag name='omsk'>Adds Omsk's maps pack</flag>
+		<flag name='perm'>Adds Perm's maps pack</flag>
+		<flag name='sam'>Adds Samara's maps pack</flag>
+		<flag name='tum'>Adds Tyumen's maps pack</flag>
+		<flag name='ufa'>Adds Ufa's maps pack</flag>
+		<flag name='chel'>Adds Chelyabinsk's maps pack</flag>"
+	</use>
 </pkgmetadata>
