@@ -17,7 +17,7 @@ LICENSE="googleearth MIT X11 SGI-B-1.1 openssl as-is ZLIB"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 RESTRICT="mirror strip"
-IUSE="+curl-bin +gcc-bin -icu-bin +mesa-bin +qt4-bin +zlib-bin"
+IUSE="+curl +gcc -icu +mesa +qt4 +zlib"
 
 RDEPEND="x86? (
 	media-libs/fontconfig
@@ -96,27 +96,27 @@ src_install() {
 	cd "${D}"/opt/${PN}
 	tar xf "${WORKDIR}"/${PN}-data.tar
 
-	if use curl-bin ; then
+	if use curl ; then
 		ln -svf /usr/lib/libcurl.so.4 libcurl.so.4
 	fi
-	if use qt4-bin ; then
+	if use qt4 ; then
 		ln -svf /usr/lib/qt4/libQtCore.so.4 libQtCore.so.4
 		ln -svf /usr/lib/qt4/libQtNetwork.so.4 libQtNetwork.so.4
 		ln -svf /usr/lib/qt4/libQtGui.so.4 libQtGui.so.4
 		ln -svf /usr/lib/qt4/libQtWebKit.so.4 libQtWebKit.so.4
 	fi
-	if use mesa-bin ; then
+	if use mesa ; then
 		ln -svf /usr/lib/libGLU.so.1 libGLU.so.1
 	fi
-	if use gcc-bin ; then
+	if use gcc ; then
 		ln -svf /usr/lib/gcc/i686-pc-linux-gnu/4.3.3/libgcc_s.so.1 libgcc_s.so.1
 		ln -svf /usr/lib/gcc/i686-pc-linux-gnu/4.3.3/libstdc++.so.6 libstdc++.so.6
 	fi
-	if use icu-bin ; then
+	if use icu ; then
 		ln -svf /usr/lib/libicudata.so.38 libicudata.so.38
 		ln -svf /usr/lib/libicuuc.so.38 libicuuc.so.38
 	fi
-	if use zlib-bin ; then
+	if use zlib ; then
 		ln -svf /lib/libz.so.1 libz.so.1
 	fi
 	
@@ -151,6 +151,7 @@ pkg_preinst() {
 }
 
 pkg_postinst() {
+	rm /opt/googleearth/qt.conf
 	fdo-mime_desktop_database_update
 	fdo-mime_mime_database_update
 }

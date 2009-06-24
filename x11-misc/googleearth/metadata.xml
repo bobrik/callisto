@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>no-herd</herd>
+	<herd>callisto</herd>
 	<maintainer>
 		<email>psavichev@gmail.com</email>
 		<name>Peter Savichev</name>
 	</maintainer>
 	<use>
-		<flag name='curl-bin'>Don't use binaty libcurl from package</flag>
-		<flag name='gcc-bin'>Don't use binary gcc libs from package</flag>
-		<flag name='icu-bin'>Don't use binary icu libs from package</flag>
-		<flag name='mesa-bin'>Don't use binary libGLU from package</flag>
-		<flag name='qt4-bin'>Don't use binary qt libs from package</flag>
-		<flag name='zlib-bin'>Don't use binary zlib from package</flag>
+		<flag name='curl'>Don't use binaty libcurl from package</flag>
+		<flag name='gcc'>Don't use binary gcc libs from package</flag>
+		<flag name='icu'>Don't use binary icu libs from package</flag>
+		<flag name='mesa'>Don't use binary libGLU from package</flag>
+		<flag name='qt4'>Don't use binary qt libs from package</flag>
+		<flag name='zlib'>Don't use binary zlib from package</flag>
 	</use>
 </pkgmetadata>
