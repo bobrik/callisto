@@ -17,7 +17,7 @@ LICENSE="googleearth MIT X11 SGI-B-1.1 openssl as-is ZLIB"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 RESTRICT="mirror strip"
-IUSE="curl gcc icu mesa qt4 zlib"
+IUSE="+curl-bin +gcc-bin -icu-bin +mesa-bin +qt4-bin +zlib-bin"
 
 RDEPEND="x86? (
 	media-libs/fontconfig
@@ -96,27 +96,27 @@ src_install() {
 	cd "${D}"/opt/${PN}
 	tar xf "${WORKDIR}"/${PN}-data.tar
 
-	if use curl ; then
+	if use curl-bin ; then
 		ln -svf /usr/lib/libcurl.so.4 libcurl.so.4
 	fi
-	if use qt4 ; then
+	if use qt4-bin ; then
 		ln -svf /usr/lib/qt4/libQtCore.so.4 libQtCore.so.4
 		ln -svf /usr/lib/qt4/libQtNetwork.so.4 libQtNetwork.so.4
 		ln -svf /usr/lib/qt4/libQtGui.so.4 libQtGui.so.4
 		ln -svf /usr/lib/qt4/libQtWebKit.so.4 libQtWebKit.so.4
 	fi
-	if use mesa ; then
+	if use mesa-bin ; then
 		ln -svf /usr/lib/libGLU.so.1 libGLU.so.1
 	fi
-	if use gcc ; then
+	if use gcc-bin ; then
 		ln -svf /usr/lib/gcc/i686-pc-linux-gnu/4.3.3/libgcc_s.so.1 libgcc_s.so.1
 		ln -svf /usr/lib/gcc/i686-pc-linux-gnu/4.3.3/libstdc++.so.6 libstdc++.so.6
 	fi
-	if use icu ; then
+	if use icu-bin ; then
 		ln -svf /usr/lib/libicudata.so.38 libicudata.so.38
 		ln -svf /usr/lib/libicuuc.so.38 libicuuc.so.38
 	fi
-	if use zlib ; then
+	if use zlib-bin ; then
 		ln -svf /lib/libz.so.1 libz.so.1
 	fi
 	
