@@ -19,6 +19,8 @@ KEYWORDS="~amd64 ~x86"
 RESTRICT="mirror strip"
 IUSE="+curl +gcc -icu +mesa +qt4 +zlib"
 
+DEPEND="gcc? ( sys-devel/gcc-config )"
+
 RDEPEND="x86? (
 	media-libs/fontconfig
 	media-libs/freetype
@@ -45,7 +47,7 @@ RDEPEND="x86? (
 			>=x11-libs/qt-webkit-4.4.2 )
 	mesa? ( >=media-libs/mesa-6.5.2 )
 	gcc? ( >=sys-devel/gcc-4.3.3 )
-	icu? ( >=dev-libs/icu-3.8.1 )
+	icu? ( =dev-libs/icu-3.8* )
 	zlib? ( >=sys-libs/zlib-1.2.3 )"
 
 S="${WORKDIR}"
@@ -109,8 +111,8 @@ src_install() {
 		ln -svf /usr/lib/libGLU.so.1 libGLU.so.1
 	fi
 	if use gcc ; then
-		ln -svf /usr/lib/gcc/i686-pc-linux-gnu/4.3.3/libgcc_s.so.1 libgcc_s.so.1
-		ln -svf /usr/lib/gcc/i686-pc-linux-gnu/4.3.3/libstdc++.so.6 libstdc++.so.6
+		ln -svf $(gcc-config -L)/libgcc_s.so.1 libgcc_s.so.1
+		ln -svf $(gcc-config -L)/libstdc++.so.6 libstdc++.so.6
 	fi
 	if use icu ; then
 		ln -svf /usr/lib/libicudata.so.38 libicudata.so.38
@@ -154,4 +156,8 @@ pkg_postinst() {
 	rm /opt/googleearth/qt.conf
 	fdo-mime_desktop_database_update
 	fdo-mime_mime_database_update
+	einfo "Note, thah using USE flags curl, gcc, mesa, icu, zlib and qt4"
+	einfo "will link binary against yout system libraries and may block"
+	einfo "their versions. So be carefull using them. Good Luck :)"
+	einfo "In that case better to set USE=\"-icu\" for that package"
 }
