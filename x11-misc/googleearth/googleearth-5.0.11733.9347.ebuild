@@ -46,7 +46,7 @@ RDEPEND="x86? (
 			>=x11-libs/qt-gui-4.4.2
 			>=x11-libs/qt-webkit-4.4.2 )
 	mesa? ( >=media-libs/mesa-6.5.2 )
-	gcc? ( >=sys-devel/gcc-4.3.3 )
+	gcc? ( >=sys-devel/gcc-4.1.2 )
 	icu? ( =dev-libs/icu-3.8* )
 	zlib? ( >=sys-libs/zlib-1.2.3 )"
 
