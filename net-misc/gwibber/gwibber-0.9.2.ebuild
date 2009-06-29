@@ -27,4 +27,4 @@ RDEPEND=">=dev-python/dbus-python-0.82.4
 	>=gnome-base/librsvg-2.22.2"
 DEPEND=""
 
-S=${WORKDIR}/${PN}
+S="${WORKDIR}/gwibber-0.9.2\~bzr263"
