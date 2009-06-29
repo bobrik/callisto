@@ -15,16 +15,17 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND=">=dev-python/dbus-python-0.82.4
-	>=dev-python/pywebkitgtk-1.0.2
+RDEPEND=">=dev-python/dbus-python-0.80.2
+	>=dev-python/pywebkitgtk-1.0.1
 	>=dev-python/notify-python-0.1.1
-	>=dev-python/simplejson-2.0.4
-	>=dev-python/egenix-mx-base-2.0.5
+	>=dev-python/simplejson-1.9.1
+	>=dev-python/egenix-mx-base-3.0.0
 	>=dev-python/feedparser-4.1
 	>=dev-python/pygtk-2.10.4
 	>=dev-python/gconf-python-2.18.0
 	>=dev-python/pyxdg-0.15
-	>=gnome-base/librsvg-2.22.2"
+	>=dev-python/imaging-1.1.6
+	dev-python/python-distutils-extra"
 DEPEND=""
 
-S="${WORKDIR}/gwibber-0.9.2\~bzr263"
+S="${WORKDIR}/gwibber-0.9.2~bzr263"
