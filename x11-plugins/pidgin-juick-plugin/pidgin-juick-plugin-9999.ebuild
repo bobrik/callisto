@@ -7,7 +7,7 @@ inherit git
 DESCRIPTION="Plugin for convenient use of russian mikroblogging service juick"
 HOMEPAGE="http://github.com/mad/pidgin-juick-plugin/"
 
-LICENSE="GPL-2"
+LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 
