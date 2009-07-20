@@ -21,10 +21,10 @@ sys-devel/gcc"
 DEPEND="${RDEPEND}"
 
 src_compile() {
-	gcc juick.c juick.so || die "build failed"
+	emake all || die "build failed"
 }
 
 src_install() {
 	insinto /usr/lib/purple-2/
-	newins juick.so || die "newins failed"
+	doins juick.so || die "doins failed"
 }
