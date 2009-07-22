@@ -15,14 +15,9 @@ IUSE=""
 
 EGIT_REPO_URI="git://github.com/mad/pidgin-juick-plugin.git"
 
-RDEPEND="net-im/pidgin
-sys-devel/gcc"
+RDEPEND="net-im/pidgin"
 
 DEPEND="${RDEPEND}"
-
-src_compile() {
-	emake all || die "build failed"
-}
 
 src_install() {
 	insinto /usr/lib/purple-2/
