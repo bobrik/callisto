@@ -9,13 +9,13 @@ SRC_URI="http://qstardict.ylsoftware.com/files/${P}.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="x86 ~amd64 ~ia64"
-IUSE="dbus nls"
+IUSE="dbus nls plasma"
 RDEPEND=">=x11-libs/qt-core-4.4.2:4
 	>=x11-libs/qt-gui-4.4.2:4
 	dbus? ( >=x11-libs/qt-dbus-4.4.2:4 )
-	#plasma? ( >=kde-base/plasma-workspace-4.2.0 )
 	>=dev-libs/glib-2.0"
 DEPEND="${RDEPEND}"
+PDEPEND="plasma? ( ~kde-misc/qstardict-plasmoid-${PV} )"
 PROVIDE="virtual/stardict"
 
 src_compile() {
