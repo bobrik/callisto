@@ -105,7 +105,8 @@ src_install() {
 		ln -svf /usr/lib/qt4/libQtCore.so.4 libQtCore.so.4
 		ln -svf /usr/lib/qt4/libQtNetwork.so.4 libQtNetwork.so.4
 		ln -svf /usr/lib/qt4/libQtGui.so.4 libQtGui.so.4
-		ln -svf /usr/lib/qt4/libQtWebKit.so.4 libQtWebKit.so.4
+		ln -svf /usr/lib/qt4/plugins/imageformats/libqgif.so plugins/imageformats/libqgif.so
+		ln -svf /usr/lib/qt4/plugins/imageformats/libqjpeg.so plugins/imageformats/libqjpeg.so
 	fi
 	if use mesa ; then
 		ln -svf /usr/lib/libGLU.so.1 libGLU.so.1
