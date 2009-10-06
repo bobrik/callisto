@@ -23,5 +23,8 @@ src_configure() {
 
 src_install() {
 	dobin ${PN} || die "dobin failed"
-	make_desktop_entry "${PN}"
+	insinto /usr/share/applications
+	doins "${PN}.desktop"
+	insinto /usr/share/pixmaps
+	doins ${PN}.png
 }
