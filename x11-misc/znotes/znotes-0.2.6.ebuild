@@ -14,24 +14,15 @@ KEYWORDS="~amd64 ~x86"
 
 IUSE=""
 
-LANGS="ru"
-for lng in ${LANGS} ; do
-	IUSE="${IUSE} linguas_${lng}"
-done
-
 DEPEND="x11-libs/qt-gui:4"
 RDEPEND="${DEPEND}"
 
-src_configure() {
-	eqmake4
+src_compile() {
+	lrelease znotes.pro || die "lrelease failed"
+	eqmake4 || die "eqmake failed"
+	emake || die "emake failed"
 }
 
 src_install() {
 	emake INSTALL_ROOT="${D}" install || die "emake failed"
-	for lng in ${LANGS} ; do
-		if use linguas_${lng} ; then
-			insinto /usr/share/znotes/
-			doins "translations/znotes_${lng}.qm" | die "emake failed"
-		fi
-	done
 }
