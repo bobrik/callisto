@@ -31,7 +31,7 @@ src_install() {
 	for lng in ${LANGS} ; do
 		if use linguas_${lng} ; then
 			insinto /usr/share/znotes/
-			doins "tranlations/znotes_${lng}.qm"
+			doins "translations/znotes_${lng}.qm" | die "emake failed"
 		fi
 	done
 }
