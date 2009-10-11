@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/freetype/freetype-2.3.8.ebuild,v 1.10 2009/03/18 14:56:50 ranger Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/freetype/freetype-2.3.11.ebuild,v 1.1 2009/10/10 19:24:40 pva Exp $
 
 inherit eutils flag-o-matic libtool
 
@@ -12,12 +12,13 @@ SRC_URI="mirror://sourceforge/freetype/${P/_/}.tar.bz2
 
 LICENSE="FTL GPL-2"
 SLOT="2"
-KEYWORDS="alpha amd64 arm hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc ~sparc-fbsd x86 ~x86-fbsd"
-IUSE="X bindist debug doc utils fontforge"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~sparc-fbsd ~x86 ~x86-fbsd"
+IUSE="X bindist cleartype debug doc utils fontforge"
 
-DEPEND="X?	( x11-libs/libX11
-			  x11-libs/libXau
-			  x11-libs/libXdmcp )"
+DEPEND="sys-libs/zlib
+	X?	( x11-libs/libX11
+		  x11-libs/libXau
+		  x11-libs/libXdmcp )"
 
 # We also need a recent fontconfig version to prevent segfaults. #166029
 # July 3 2007 dirtyepic
@@ -61,7 +62,9 @@ src_unpack() {
 
 	epatch "${FILESDIR}"/${PN}-2.3.2-enable-valid.patch
 	# cleartype patch
-	epatch "${FILESDIR}"/${PN}-subpixel-disable-quantization.diff
+	if use cleartype; then
+		epatch "${FILESDIR}"/${PN}-subpixel-disable-quantization.diff
+	fi
 
 	if use utils; then
 		cd "${WORKDIR}"/ft2demos-${PV}
