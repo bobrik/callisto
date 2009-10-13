@@ -13,7 +13,7 @@ SRC_URI="mirror://sourceforge/freetype/${P/_/}.tar.bz2
 LICENSE="FTL GPL-2"
 SLOT="2"
 KEYWORDS="alpha amd64 arm hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc ~sparc-fbsd x86 ~x86-fbsd"
-IUSE="X bindist debug doc utils fontforge"
+IUSE="X bindist cleartype debug doc utils fontforge"
 
 DEPEND="X?	( x11-libs/libX11
 			  x11-libs/libXau
@@ -62,7 +62,9 @@ src_unpack() {
 	epatch "${FILESDIR}"/${PN}-2.3.2-enable-valid.patch
 	epatch "${FILESDIR}"/${P}-CVE-2009-0946.patch            # 263032
 	# cleartype patch
-	epatch "${FILESDIR}"/${PN}-subpixel-disable-quantization.diff
+	if use cleartype; then
+		epatch "${FILESDIR}"/${PN}-subpixel-disable-quantization.diff
+	fi
 
 	if use utils; then
 		cd "${WORKDIR}"/ft2demos-${PV}
