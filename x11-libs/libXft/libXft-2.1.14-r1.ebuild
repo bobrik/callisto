@@ -19,7 +19,7 @@ RDEPEND="x11-libs/libXrender
 	>=media-libs/fontconfig-2.2"
 DEPEND="${RDEPEND}"
 
-PATCHES="${FILESDIR}/${PN}-2.1.10-lcd-cleartype.diff"
+PATCHES="${FILESDIR}/${PN}-lcd-cleartype.diff"
 
 pkg_setup() {
 	# No such function yet
