@@ -6,13 +6,13 @@ EAPI="2"
 inherit eutils qt4
 
 DESCRIPTION="Simple Notes"
-HOMEPAGE="http://www.qt-apps.org/content/show.php/zNotes?content=113117"
-SRC_URI="http://www.qt-apps.org/CONTENT/content-files/113117-${PN}-${PV}.tar.gz"
+HOMEPAGE="http://znotes.sourceforge.net/"
+SRC_URI="http://downloads.sourceforge.net/project/znotes/${PV}/znotes-${PV}.tar.gz"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-IUSE=""
+IUSE="doc"
 
 DEPEND="x11-libs/qt-gui:4"
 RDEPEND="${DEPEND}"
@@ -25,4 +25,5 @@ src_compile() {
 
 src_install() {
 	emake INSTALL_ROOT="${D}" install || die "emake failed"
+	use doc && dodoc CHANGELOG LICENSE INSTALL THANKS
 }
