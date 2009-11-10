@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<herd>callisto</herd>
+	<maintainer>
+		<email>shiriy.lyoha@gmail.com</email>
+		<name>shiriy</name>
+	</maintainer>
+	<longdescription lang="en">
+Skype Call Recorder is an open source tool that allows you to record your Skype calls on Linux.
+	</longdescription>
+	<longdescription lang="ru">
+Skype Call Recorder - свободно распространяемый инструмент, который позволяет записывать Skype звонки на GNU/Linux.
+	</longdescription>
+
+</pkgmetadata>
