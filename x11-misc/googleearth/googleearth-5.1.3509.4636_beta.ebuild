@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-misc/googleearth/googleearth-5.1.3509.4636_beta.ebuild,v 1.1 2009/10/03 12:12:54 caster Exp $
+# $Header: x11-misc/googleearth/googleearth-5.1.3509.4636_beta.ebuild 2009/11/11 06:10:20 Exp $
 
 EAPI=2
 
@@ -17,11 +17,11 @@ LICENSE="googleearth MIT X11 SGI-B-1.1 openssl as-is ZLIB"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 RESTRICT="mirror strip"
-IUSE="+curl +gcc -icu +mesa +qt4"
+IUSE="+curl +mesa +qt4"
 
-DEPEND="gcc? ( sys-devel/gcc-config )"
+DEPEND=""
 
-RDEPEND="
+RDEPEND="${DEPEND}
 	x86? (
 		media-libs/fontconfig
 		media-libs/freetype
@@ -51,8 +51,7 @@ RDEPEND="
 	qt4? ( >=x11-libs/qt-core-4.4.2
 			>=x11-libs/qt-gui-4.4.2
 			>=x11-libs/qt-webkit-4.4.2 )
-	mesa? ( >=media-libs/mesa-6.5.2 )
-	icu? ( =dev-libs/icu-3.8* )"
+	mesa? ( >=media-libs/mesa-6.5.2 )"
 
 S="${WORKDIR}"
 
@@ -110,28 +109,24 @@ src_install() {
 	tar xf "${WORKDIR}"/${PN}-data.tar
 
 	if use curl ; then
-		ln -svf /usr/lib/libcurl.so.4 libcurl.so.4
+		rm -rvf libcurl.so.4
 	fi
 	if use qt4 ; then
-		ln -svf /usr/lib/qt4/libQtCore.so.4 libQtCore.so.4
-		ln -svf /usr/lib/qt4/libQtNetwork.so.4 libQtNetwork.so.4
-		ln -svf /usr/lib/qt4/libQtGui.so.4 libQtGui.so.4
-		ln -svf /usr/lib/qt4/plugins/imageformats/libqgif.so plugins/imageformats/libqgif.so
-		ln -svf /usr/lib/qt4/plugins/imageformats/libqjpeg.so plugins/imageformats/libqjpeg.so
+		local i
+		for i in libQtCore.so.4 libQtNetwork.so.4 libQtGui.so.4 libQtWebKit.so.4 plugins; do
+			rm -rvf "${i}"
+		done
 	fi
 	if use mesa ; then
-		ln -svf /usr/lib/libGLU.so.1 libGLU.so.1
-	fi
-	if use icu ; then
-		ln -svf /usr/lib/libicudata.so.38 libicudata.so.38
-		ln -svf /usr/lib/libicuuc.so.38 libicuuc.so.38
+		rm -rvf libGLU.so.1
 	fi
 
 	fowners -R root:root /opt/${PN}
-	fperms -R a-x,a+X /opt/googleearth/{xml,resources}
+	fperms -R a-x,a+X /opt/googleearth/resources
 }
 
 pkg_preinst() {
+	#deleting unused lang files & dirs
 	for lng in ${LANGS} ; do
 		if ! use linguas_${lng} ; then
 			if [[ ${lng} = "es" ]] ; then
@@ -141,18 +136,15 @@ pkg_preinst() {
 					rm -vf ${D}/opt/${PN}/lang/${lng}.qm
 				fi
 			fi
-			if [[ -f ${D}/opt/${PN}/resources/${lng}.country ]] ; then
-				rm -vf ${D}/opt/${PN}/resources/${lng}.country
-			fi
-			if [[ -d ${D}/opt/${PN}/resources/${lng}.country ]] ; then
-				rm -rvf ${D}/opt/${PN}/resources/${lng}.country
-			fi
-			if [[ -f ${D}/opt/${PN}/resources/${lng}.locale ]] ; then
-				rm -vf ${D}/opt/${PN}/resources/${lng}.locale
-			fi
-			if [[ -d ${D}/opt/${PN}/resources/${lng}.locale ]] ; then
-				rm -rvf ${D}/opt/${PN}/resources/${lng}.locale
-			fi
+			local i
+			for i in country locale ; do
+				if [[ -f ${D}/opt/${PN}/resources/${lng}.${i} ]] ; then
+					rm -vf ${D}/opt/${PN}/resources/${lng}.${i}
+				fi
+				if [[ -d ${D}/opt/${PN}/resources/${lng}.${i} ]] ; then
+					rm -rvf ${D}/opt/${PN}/resources/${lng}.${i}
+				fi
+			done
 		fi
 	done
 }
@@ -161,8 +153,5 @@ pkg_postinst() {
 	rm /opt/googleearth/qt.conf
 	fdo-mime_desktop_database_update
 	fdo-mime_mime_database_update
-	einfo "Note, thah using USE flags curl, gcc, mesa, icu, zlib and qt4"
-	einfo "will link binary against yout system libraries and may block"
-	einfo "their versions. So be carefull using them. Good Luck :)"
-	einfo "In that case better to set USE=\"-icu\" for that package"
+	einfo "If you want your language interface, use qt4 useflag"
 }
