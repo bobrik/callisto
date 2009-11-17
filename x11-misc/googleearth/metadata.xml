@@ -8,7 +8,6 @@
 	</maintainer>
 	<use>
 		<flag name='curl'>Don't use binaty libcurl from package</flag>
-		<flag name='icu'>Don't use binary icu libs from package</flag>
 		<flag name='mesa'>Don't use binary libGLU from package</flag>
 		<flag name='qt4'>Don't use binary qt libs from package</flag>
 	</use>
