@@ -10,5 +10,7 @@
 		<flag name='curl'>Don't use binaty libcurl from package</flag>
 		<flag name='mesa'>Don't use binary libGLU from package</flag>
 		<flag name='qt4'>Don't use binary qt libs from package</flag>
+		<flag name='gdal'>Don't use binary gdal &amp; proj libs from this package</flag>
+		<flag name='nss_mdns'>Don't use binary nss_mdns lib from this package</flag>
 	</use>
 </pkgmetadata>
