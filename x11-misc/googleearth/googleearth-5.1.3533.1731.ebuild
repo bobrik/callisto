@@ -137,6 +137,8 @@ src_install() {
 		for i in libQtCore.so.4 libQtNetwork.so.4 libQtGui.so.4 plugins libQtWebKit.so.4 ; do
 			rm -rvf "${i}"
 		done
+		# delete qt.conf
+		rm -rvf qt.conf
 	fi
 	# shared gdal & proj libs
 	if use gdal ; then
@@ -146,8 +148,6 @@ src_install() {
 	if use nss_mdns ; then
 		rm -rvf libnss_mdns4_minimal.so.2
 	fi
-	# delete qt.conf
-	rm -rvf qt.conf
 }
 
 pkg_preinst() {
