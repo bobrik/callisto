@@ -1,0 +1,110 @@
+--- src/skins/ui_skinned_textbox.c-orig	2009-12-09 23:06:38.000000000 +0500
++++ src/skins/ui_skinned_textbox.c	2009-12-09 23:16:22.000000000 +0500
+@@ -898,6 +898,107 @@
+     } else if (!strncmp(c, "Ä", strlen("Ä"))) {
+         tx = 2;
+         ty = 2;
++	/* some russian sings */
++	} else if (!strncmp(c, "А", strlen("А")) || !strncmp(c, "а", strlen("а"))) {
++		tx = 0;
++		ty = 0;
++	} else if (!strncmp(c, "Б", strlen("Б")) || !strncmp(c, "б", strlen("б"))) {
++		tx = 5;
++		ty = 2;
++	} else if (!strncmp(c, "В", strlen("В")) || !strncmp(c, "в", strlen("в"))) {
++		tx = 1;
++		ty = 0;
++	} else if (!strncmp(c, "Г", strlen("Г")) || !strncmp(c, "г", strlen("г"))) {
++		tx = 6;
++		ty = 2;
++	} else if (!strncmp(c, "Д", strlen("Д")) || !strncmp(c, "д", strlen("д"))) {
++		tx = 7;
++		ty = 2;
++	} else if (!strncmp(c, "Е", strlen("Е")) || !strncmp(c, "е", strlen("е"))) {
++		tx = 4;
++		ty = 0;
++	} else if (!strncmp(c, "Ё", strlen("Ё")) || !strncmp(c, "ё", strlen("ё"))) {
++		tx = 8;
++		ty = 2;
++	} else if (!strncmp(c, "Ж", strlen("Ж")) || !strncmp(c, "ж", strlen("ж"))) {
++		tx = 9;
++		ty = 2;
++	} else if (!strncmp(c, "З", strlen("З")) || !strncmp(c, "з", strlen("з"))) {
++		tx = 10;
++		ty = 2;
++	} else if (!strncmp(c, "И", strlen("И")) || !strncmp(c, "и", strlen("и"))) {
++		tx = 11;
++		ty = 2;
++	} else if (!strncmp(c, "Й", strlen("Й")) || !strncmp(c, "й", strlen("й"))) {
++		tx = 12;
++		ty = 2;
++	} else if (!strncmp(c, "К", strlen("К")) || !strncmp(c, "к", strlen("к"))) {
++		tx = 10;
++		ty = 0;
++	} else if (!strncmp(c, "Л", strlen("Л")) || !strncmp(c, "л", strlen("л"))) {
++		tx = 13;
++		ty = 2;
++	} else if (!strncmp(c, "М", strlen("М")) || !strncmp(c, "м", strlen("м"))) {
++		tx = 12;
++		ty = 0;
++	} else if (!strncmp(c, "Н", strlen("Н")) || !strncmp(c, "н", strlen("н"))) {
++		tx = 7;
++		ty = 0;
++	} else if (!strncmp(c, "О", strlen("О")) || !strncmp(c, "о", strlen("о"))) {
++		tx = 14;
++		ty = 0;
++	} else if (!strncmp(c, "П", strlen("П")) || !strncmp(c, "п", strlen("п"))) {
++		tx = 14;
++		ty = 2;
++	} else if (!strncmp(c, "Р", strlen("Р")) || !strncmp(c, "р", strlen("р"))) {
++		tx = 15;
++		ty = 0;
++	} else if (!strncmp(c, "С", strlen("С")) || !strncmp(c, "с", strlen("с"))) {
++		tx = 2;
++		ty = 0;
++	} else if (!strncmp(c, "Т", strlen("Т")) || !strncmp(c, "т", strlen("т"))) {
++		tx = 19;
++		ty = 0;
++	} else if (!strncmp(c, "У", strlen("У")) || !strncmp(c, "у", strlen("у"))) {
++		tx = 24;
++		ty = 0;
++	} else if (!strncmp(c, "Ф", strlen("Ф")) || !strncmp(c, "ф", strlen("ф"))) {
++		tx = 15;
++		ty = 2;
++	} else if (!strncmp(c, "Х", strlen("Х")) || !strncmp(c, "х", strlen("х"))) {
++		tx = 23;
++		ty = 0;
++	} else if (!strncmp(c, "Ц", strlen("Ц")) || !strncmp(c, "ц", strlen("ц"))) {
++		tx = 16;
++		ty = 2;
++	} else if (!strncmp(c, "Ч", strlen("Ч")) || !strncmp(c, "ч", strlen("ч"))) {
++		tx = 17;
++		ty = 2;
++	} else if (!strncmp(c, "Ш", strlen("Ш")) || !strncmp(c, "ш", strlen("ш"))) {
++		tx = 18;
++		ty = 2;
++	} else if (!strncmp(c, "Щ", strlen("Щ")) || !strncmp(c, "щ", strlen("щ"))) {
++		tx = 19;
++		ty = 2;
++	} else if (!strncmp(c, "Ъ", strlen("Ъ")) || !strncmp(c, "ъ", strlen("ъ"))) {
++		tx = 20;
++		ty = 2;
++	} else if (!strncmp(c, "Ы", strlen("Ы")) || !strncmp(c, "ы", strlen("ы"))) {
++		tx = 21;
++		ty = 2;
++	} else if (!strncmp(c, "Ь", strlen("Ь")) || !strncmp(c, "ь", strlen("ь"))) {
++		tx = 22;
++		ty = 2;
++	} else if (!strncmp(c, "Э", strlen("Э")) || !strncmp(c, "э", strlen("э"))) {
++		tx = 23;
++		ty = 2;
++	} else if (!strncmp(c, "Ю", strlen("Ю")) || !strncmp(c, "ю", strlen("ю"))) {
++		tx = 24;
++		ty = 2;
++	} else if (!strncmp(c, "Я", strlen("Я")) || !strncmp(c, "я", strlen("я"))) {
++		tx = 25;
++		ty = 2;
++	/* end of some russian sings */
+     }
+ 
+     *x = tx * aud_active_skin->properties.textbox_bitmap_font_width;
