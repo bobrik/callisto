@@ -5,7 +5,7 @@
 EAPI="2"
 inherit eutils qt4 git
 
-DESCRIPTION="Simple Notes"
+DESCRIPTION="Simple lightweight crossplatform application for notes managment"
 HOMEPAGE="http://znotes.sourceforge.net/"
 LICENSE="GPL-3"
 SLOT="0"
