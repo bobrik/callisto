@@ -29,3 +29,7 @@ src_configure() {
 	./autogen.sh || die "autogen failed"
 	econf $(use_enable libnotify) || die "configure failed"
 }
+
+src_install() {
+	emake DESTDIR="${D}" install || die "install failed"
+}
