@@ -3,9 +3,9 @@
 # $Header:
 
 EAPI="2"
-inherit eutils qt4 git
+inherit eutils qt4-r2
 
-DESCRIPTION="Simple lightweight crossplatform application for notes managment"
+DESCRIPTION="Lightweigh crossplatform application for notes management"
 HOMEPAGE="http://znotes.sourceforge.net/"
 LICENSE="GPL-3"
 SLOT="0"
@@ -18,10 +18,9 @@ EGIT_REPO_URI="git://github.com/proton/zNotes.git"
 DEPEND="x11-libs/qt-gui:4"
 RDEPEND="${DEPEND}"
 
-src_compile() {
+src_configure() {
 	lrelease znotes.pro || die "lrelease failed"
-	eqmake4 || die "eqmake failed"
-	emake || die "emake failed"
+	qt4-r2_src_configure
 }
 
 src_install() {
