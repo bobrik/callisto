@@ -8,6 +8,7 @@ inherit multilib python eutils mercurial
 
 EHG_REPO_URI="http://hg.gajim.org/gajim"
 EHG_REVISION="default"
+EHG_QUIET="OFF"
 
 DESCRIPTION="Jabber client written in PyGTK"
 HOMEPAGE="http://www.gajim.org/"
@@ -16,7 +17,7 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
-IUSE="avahi asyncns dbus gnome idle libnotify nls spell srv trayicon X xhtml"
+IUSE="avahi asyncns dbus gnome jingle idle libnotify nls spell srv trayicon X xhtml"
 
 DEPEND="|| (
 		( <dev-lang/python-2.5[sqlite=] dev-python/pysqlite )
@@ -38,6 +39,7 @@ RDEPEND="gnome? ( dev-python/gnome-python-extras
 	spell? ( app-text/gtkspell )
 	avahi? ( net-dns/avahi )
 	asyncns? ( dev-python/libasyncns-python )
+	jingle? ( net-libs/farsight2[python] )
 	dev-python/pyopenssl"
 
 S="${WORKDIR}/${PN}"
@@ -67,7 +69,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}/autotools_install_pyfiles_in_pkglibdir.patch"
 	epatch "${FILESDIR}/dont_run_configure_in_autogen.patch"
 
 	./autogen.sh

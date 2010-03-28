@@ -15,5 +15,6 @@
 		<flag name='trayicon'>Enable support for trayicon</flag>
 		<flag name='xhtml'>Enable XHTML support</flag>
 		<flag name='asyncns'>Enable support for async DNS requests</flag>
+		<flag name='jingle'>Enable support for jingle (audio calls)</flag>
 	</use>
 </pkgmetadata>
