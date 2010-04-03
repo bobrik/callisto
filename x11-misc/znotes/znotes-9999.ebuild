@@ -3,7 +3,7 @@
 # $Header:
 
 EAPI="2"
-inherit eutils qt4-r2
+inherit eutils qt4-r2 git
 
 DESCRIPTION="Lightweigh crossplatform application for notes management"
 HOMEPAGE="http://znotes.sourceforge.net/"
