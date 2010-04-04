@@ -11,7 +11,7 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS=""
 
-IUSE="doc"
+IUSE="doc +singleinstance +format_todo +format_xml"
 
 EGIT_REPO_URI="git://github.com/proton/zNotes.git"
 
@@ -20,7 +20,7 @@ RDEPEND="${DEPEND}"
 
 src_configure() {
 	lrelease znotes.pro || die "lrelease failed"
-	qt4-r2_src_configure
+	qt4-r2_src_configure CONFIG += without_single_inst without_xml_format without_todo_format
 }
 
 src_install() {
