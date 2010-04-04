@@ -20,10 +20,10 @@ RDEPEND="${DEPEND}"
 
 src_configure() {
 	lrelease znotes.pro || die "lrelease failed"
-	use singleinstance || myconf="${myconf} without_single_inst"
-	use format_todo || myconf="${myconf} without_todo_format"
-	use format_xml || myconf="${myconf} without_xml_format"
-	eqmake4 znotes.pro "CONFIG+=${myconf}" || die "configure failed"
+	use singleinstance || myconf="${myconf} CONFIG+=without_single_inst"
+	use format_todo || myconf="${myconf} CONFIG+=without_todo_format"
+	use format_xml || myconf="${myconf} CONFIG+=without_xml_format"
+	eqmake4 znotes.pro "${myconf}" || die "configure failed"
 }
 
 src_install() {
