@@ -8,8 +8,8 @@ inherit x-modular flag-o-matic
 
 DESCRIPTION="X.Org Xft library"
 
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~x86-fbsd"
-IUSE=""
+KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc x86 ~x86-fbsd"
+IUSE="cleartype"
 
 RDEPEND="x11-libs/libXrender
 	x11-libs/libX11
@@ -19,14 +19,15 @@ RDEPEND="x11-libs/libXrender
 	>=media-libs/fontconfig-2.2"
 DEPEND="${RDEPEND}"
 
-PATCHES="${FILESDIR}/${PN}-lcd-cleartype.diff"
-
 pkg_setup() {
-	# No such function yet
-	# x-modular_pkg_setup
-
 	# (#125465) Broken with Bdirect support
 	filter-flags -Wl,-Bdirect
 	filter-ldflags -Bdirect
 	filter-ldflags -Wl,-Bdirect
+}
+
+src_complie() {
+    if use cleartype; then
+        epatch "${FILESDIR}/${PN}-lcd-cleartype.diff"
+    fi
 }
