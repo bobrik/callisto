@@ -16,7 +16,7 @@ SRC_URI=""
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
+KEYWORDS=""
 IUSE="avahi asyncns dbus gnome jingle idle libnotify nls spell srv trayicon X xhtml"
 
 DEPEND="|| (
