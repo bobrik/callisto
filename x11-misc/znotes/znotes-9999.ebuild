@@ -23,7 +23,7 @@ src_configure() {
 	use singleinstance || myconf="${myconf} CONFIG+=without_single_inst"
 	use format_todo || myconf="${myconf} CONFIG+=without_todo_format"
 	use format_xml || myconf="${myconf} CONFIG+=without_xml_format"
-	eqmake4 znotes.pro "${myconf}" || die "configure failed"
+	eqmake4 znotes.pro ${myconf} || die "configure failed"
 }
 
 src_install() {
