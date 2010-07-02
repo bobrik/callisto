@@ -13,7 +13,7 @@ HOMEPAGE="http://deadbeef.sourceforge.net/"
 LICENSE="GPL-2"
 
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS=""
 IUSE="libnotify"
 
 RDEPEND="media-libs/libvorbis
