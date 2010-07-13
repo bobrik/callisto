@@ -27,9 +27,9 @@ src_compile() {
     if [ ! -f "${DISTDIR}/${QT_CREATOR_FILENAME}" ]; then
         ${FETCHCOMMAND} ${SRC_URL}
     fi
-    
+
     tar zxf "${DISTDIR}/${QT_CREATOR_FILENAME}" -C ${WORKDIR}
-    
+
 	sed -ri "s|^(unix:QTC_SOURCE_DIR = ).*|\1${WORKDIR}/${QT_CREATOR_DIRNAME}|" doxygen.pro
 	sed -ri "s|^(unix:QTC_BUILD_DIR = ).*|\1${D}|" doxygen.pro
 	sed -ri "s|-L/home/kofee/Dev/Qt/qtcreator-2.0.0-alpha1-src/lib/qtcreator/|-L/usr/lib/qtcreator|" doxygen.pro
@@ -40,5 +40,6 @@ src_compile() {
 }
 
 src_install() {
+    dodir "lib/qtcreator/plugins/Kofee"
     INSTALL_ROOT="${D}" make install || die
 }
