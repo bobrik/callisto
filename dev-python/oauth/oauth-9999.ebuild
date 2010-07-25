@@ -16,3 +16,7 @@ KEYWORDS="~x86 ~amd64"
 DEPEND="dev-lang/python"
 RDEPEND="${DEPEND}"
 
+src_compile() {
+    cd ${PN}
+    epatch "${FILESDIR}/oauth-python-3-update.diff" || die
+}
