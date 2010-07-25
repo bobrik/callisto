@@ -4,6 +4,8 @@
 
 inherit distutils subversion
 
+SUPPORT_PYTHON_ABIS="1"
+
 ESVN_REPO_URI="http://oauth.googlecode.com/svn/code/python/"
 
 DESCRIPTION="Python library for OAuth"
