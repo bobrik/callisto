@@ -16,8 +16,8 @@
 +    import urllib.request, urllib.parse, urllib.error
 +    import urllib.parse
 +    quote = urllib.parse.quote
-+    urlparse = urllib.parse.urlparse
 +    urlunparse = urllib.parse.urlunparse
++    urlparse = urllib.parse.urlparse
 +    urlencode = urllib.parse.urlencode
 +    unquote = urllib.parse.unquote
 +except:
@@ -25,8 +25,8 @@
 +    import urllib
 +    import urlparse
 +    quote = urllib.quote
-+    urlparse = urlparse.urlparse
 +    urlunparse = urlparse.urlunparse
++    urlparse = urlparse.urlparse
 +    urlencode = urllib.urlencode
 +    unquote = urllib.unquote
 +
