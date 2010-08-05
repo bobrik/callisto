@@ -22,7 +22,8 @@ RDEPEND="x11-libs/qt-gui:4
     x11-libs/libnotify
     media-libs/xine-lib
     media-libs/taglib
-    dev-libs/glib:2"
+    dev-libs/glib:2
+	>=media-libs/glew-1.5.1"
 DEPEND="${RDEPEND}
     >=dev-libs/boost-1.41
     dev-util/pkgconfig"
