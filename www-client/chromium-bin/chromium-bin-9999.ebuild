@@ -70,9 +70,9 @@ src_unpack() {
 	if use amd64; then
 		arch_path="-64"
 	fi
-	LV=`curl --silent http://build.chromium.org/buildbot/snapshots/chromium-rel-linux${arch_path}/LATEST`
+    LV=`curl --silent http://build.chromium.org/f/chromium/snapshots/chromium-rel-linux/LATEST`
 	elog "Installing/updating to version ${LV}"
-	wget -c "http://build.chromium.org/buildbot/snapshots/chromium-rel-linux${arch_path}/${LV}/chrome-linux.zip" -O "${T}"/${PN}-${LV}.zip
+	wget -c "http://build.chromium.org/f/chromium/snapshots/chromium-rel-linux/${LV}/chrome-linux.zip" -O "${T}"/${PN}-${LV}.zip
 	unzip -qo "${T}"/${PN}-${LV}.zip || die "Unpack failed"
 	chmod -fR a+rX,u+w,g-w,o-w chrome-linux/ || die "chmod failed"
 }
