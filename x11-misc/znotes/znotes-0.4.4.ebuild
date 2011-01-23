@@ -5,18 +5,18 @@
 EAPI="2"
 inherit eutils qt4-r2
 
-DESCRIPTION="Simple lightweight crossplatform application for notes managment"
+DESCRIPTION="Lightweigh crossplatform application for notes management"
 HOMEPAGE="http://znotes.sourceforge.net/"
 SRC_URI="http://downloads.sourceforge.net/project/znotes/${PV}/znotes-${PV}.tar.gz"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-IUSE="doc"
-MY_LINGUAS="cs ru"
+IUSE="doc +singleinstance +format_todo"
+MY_LINGUAS="cs pt_BR ru uk"
 
 for MY_LINGUA in ${MY_LINGUAS}; do
-	IUSE="${IUSE} linguas_${MY_LINGUA/-/_}"
+	IUSE="${IUSE} linguas_${MY_LINGUA}"
 done
 
 DEPEND="x11-libs/qt-gui:4"
@@ -24,7 +24,9 @@ RDEPEND="${DEPEND}"
 
 src_configure() {
 	lrelease znotes.pro || die "lrelease failed"
-	qt4-r2_src_configure
+	use singleinstance || myconf="${myconf} CONFIG+=without_single_inst"
+	use format_todo || myconf="${myconf} CONFIG+=without_todo_format"
+	eqmake4 znotes.pro ${myconf} || die "configure failed"
 }
 
 src_install() {
@@ -34,7 +36,7 @@ src_install() {
 	einfo "Keeping these locales: ${LINGUAS}."
 	for LINGUA in ${MY_LINGUAS}; do
 		if ! use linguas_${LINGUA/-/_}; then
-			rm ${D}/usr/share/znotes/translations/znotes_${LINGUA/_/-}.qm
+			rm ${D}/usr/share/znotes/translations/znotes_${LINGUA}.qm
 		fi
  	done
 }
