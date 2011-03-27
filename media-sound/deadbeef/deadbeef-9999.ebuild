@@ -15,7 +15,7 @@ SRC_URI=""
 LICENSE="GPL-2"
 
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS=""
 IUSE="aac adplug alsa audiooverload cdda cover curl dts dumb ffmpeg flac gme +gtk hotkeys lastfm libnotify mac midi mms mp3 musepack nls null oss pulseaudio rpath shellexec shorten sid sndfile supereq threads tta vorbis vtx wavpack"
 
 RDEPEND="
