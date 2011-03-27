@@ -3,15 +3,12 @@
 
 EAPI="3"
 
-inherit git fdo-mime
-
-EGIT_REPO_URI="git://deadbeef.git.sourceforge.net/gitroot/deadbeef/deadbeef"
-EGIT_BRANCH="devel"
-EGIT_BOOTSTRAP="autogen.sh"
+inherit fdo-mime
 
 DESCRIPTION="Lightweight GTK+ audio player for GNU/Linux systems"
 HOMEPAGE="http://deadbeef.sourceforge.net/"
-SRC_URI=""
+SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
+
 LICENSE="GPL-2"
 
 SLOT="0"
@@ -39,8 +36,7 @@ RDEPEND="
 	audiooverload? ( sys-libs/zlib )
 	midi? ( media-sound/timidity-freepats )
 	"
-DEPEND="${RDEPEND}
-	dev-vcs/git"
+DEPEND="${RDEPEND}"
 
 src_prepare() {
 	if use midi; then
@@ -48,8 +44,6 @@ src_prepare() {
 		sed -e 's;/etc/timidity++/timidity-freepats.cfg;/usr/share/timidity/freepats/timidity.cfg;g' \
 			-i "${S}/plugins/wildmidi/wildmidiplug.c"
 	fi
-
-	git_src_prepare
 }
 
 src_configure() {
