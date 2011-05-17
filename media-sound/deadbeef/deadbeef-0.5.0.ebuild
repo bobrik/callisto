@@ -1,7 +1,7 @@
 # Copyright 1999-2005 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="3"
+EAPI="4"
 
 inherit fdo-mime
 
@@ -13,16 +13,17 @@ LICENSE="GPL-2"
 
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="aac adplug alsa audiooverload cdda cover curl dts dumb ffmpeg flac gme +gtk hotkeys lastfm libnotify mac midi mms mp3 musepack nls null oss pulseaudio rpath shellexec shorten sid sndfile supereq threads tta vorbis vtx wavpack"
+IUSE="aac adplug alsa cdda cover curl dts encode ffmpeg flac gme +gtk hotkeys lastfm libnotify libsamplerate m3u mac midi mms mp3 musepack nls null oss pulseaudio shellexec sid sndfile supereq threads tta vorbis vtx wavpack zip"
 
-RDEPEND="
-	media-libs/libsamplerate
+REQUIRED_USE="encode? ( gtk )
+	cover? ( curl )
+	lastfm? ( curl )"
+
+RDEPEND="media-libs/libsamplerate
 	gtk? ( x11-libs/gtk+:2 )
 	alsa? ( media-libs/alsa-lib )
 	vorbis? ( media-libs/libvorbis )
-	cover? ( net-misc/curl )
 	curl? ( net-misc/curl )
-	lastfm? ( net-misc/curl )
 	mp3? ( media-libs/libmad )
 	flac? ( media-libs/flac )
 	wavpack? ( media-sound/wavpack )
@@ -33,10 +34,13 @@ RDEPEND="
 	libnotify? ( sys-apps/dbus )
 	pulseaudio? ( media-sound/pulseaudio )
 	aac? ( media-libs/faad2 )
-	audiooverload? ( sys-libs/zlib )
 	midi? ( media-sound/timidity-freepats )
-	"
+	zip? ( sys-libs/zlib )
+	libsamplerate? ( media-libs/libsamplerate )"
+
 DEPEND="${RDEPEND}"
+
+S="${WORKDIR}/${MY_P}"
 
 src_prepare() {
 	if use midi; then
@@ -47,56 +51,44 @@ src_prepare() {
 }
 
 src_configure() {
-	my_config="--disable-dependency-tracking
-		$(use_enable nls)
+	my_config="$(use_enable nls)
 		$(use_enable threads)
-		$(use_enable rpath)
 		$(use_enable null nullout)
 		$(use_enable alsa)
 		$(use_enable oss)
-		$(use_enable pulseaudio pulse)
 		$(use_enable gtk gtkui)
-		--disable-gtk3
-		$(use_enable supereq)
-		$(use_enable sid)
-		$(use_enable mp3 mad)
-		$(use_enable mac ffap)
-		$(use_enable vtx)
+		$(use_enable aac)
 		$(use_enable adplug)
-		$(use_enable hotkeys)
-		$(use_enable vorbis)
+		$(use_enable cdda)
+		$(use_enable cover artwork)
+		$(use_enable curl vfs-curl)
+		$(use_enable dts dca)
+		$(use_enable encode converter)
 		$(use_enable ffmpeg)
 		$(use_enable flac)
-		$(use_enable sndfile)
-		$(use_enable wavpack)
-		$(use_enable cdda)
 		$(use_enable gme)
-		$(use_enable dumb)
+		$(use_enable hotkeys)
+		$(use_enable lastfm lfm)
 		$(use_enable libnotify notify)
-		$(use_enable shellexec)
-		$(use_enable musepack)
+		$(use_enable libsamplerate src)
+		$(use_enable m3u)
+		$(use_enable mac ffap)
 		$(use_enable midi wildmidi)
-		$(use_enable tta)
-		$(use_enable dts dca)
-		$(use_enable aac)
 		$(use_enable mms)
-		$(use_enable shorten shn)
-		$(use_enable audiooverload ao)"
-	
-	# artowrk and lastfm plugins both require curl
-	if use cover || use lastfm ; then
-		my_config="${my_config}
-			--enable-vfs-curl
-			$(use_enable cover artwork)
-			$(use_enable lastfm lfm)"
-	else
-		my_config="${my_config}
-			--disable-artwork
-			--disable-lfm
-			$(use_enable curl vfs-curl)"
-	fi
+		$(use_enable mp3 mad)
+		$(use_enable musepack)
+		$(use_enable pulseaudio pulse)
+		$(use_enable shellexec)
+		$(use_enable sid)
+		$(use_enable sndfile)
+		$(use_enable supereq)
+		$(use_enable tta)
+		$(use_enable vorbis)
+		$(use_enable vtx)
+		$(use_enable wavpack)
+		$(use_enable zip vfs-zip)"
 
-	econf ${my_config} || die
+	econf ${my_config}
 }
 
 src_install() {
