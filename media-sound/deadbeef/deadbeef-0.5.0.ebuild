@@ -13,13 +13,16 @@ LICENSE="GPL-2"
 
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="aac adplug alsa cdda cover curl dts encode ffmpeg flac gme +gtk hotkeys lastfm libnotify libsamplerate m3u mac midi mms mp3 musepack nls null oss pulseaudio shellexec sid sndfile supereq threads tta vorbis vtx wavpack zip"
+IUSE="aac adplug alsa cdda cover curl dts encode ffap ffmpeg flac gme +gtk 
+	hotkeys lastfm libnotify libsamplerate m3u mac midi mms mp3 musepack
+	nls null oss pulseaudio shellexec sid sndfile supereq threads tta
+	vorbis vtx wavpack zip"
 
 REQUIRED_USE="encode? ( gtk )
 	cover? ( curl )
 	lastfm? ( curl )"
 
-RDEPEND="media-libs/libsamplerate
+DEPEND="
 	gtk? ( x11-libs/gtk+:2 )
 	alsa? ( media-libs/alsa-lib )
 	vorbis? ( media-libs/libvorbis )
@@ -36,11 +39,9 @@ RDEPEND="media-libs/libsamplerate
 	aac? ( media-libs/faad2 )
 	midi? ( media-sound/timidity-freepats )
 	zip? ( sys-libs/zlib )
-	libsamplerate? ( media-libs/libsamplerate )"
-
-DEPEND="${RDEPEND}"
-
-S="${WORKDIR}/${MY_P}"
+	libsamplerate? ( media-libs/libsamplerate )
+	"
+RDEPEND="${DEPEND}"
 
 src_prepare() {
 	if use midi; then
@@ -84,6 +85,7 @@ src_configure() {
 		$(use_enable supereq)
 		$(use_enable tta)
 		$(use_enable vorbis)
+		$(use_enable ffap)
 		$(use_enable vtx)
 		$(use_enable wavpack)
 		$(use_enable zip vfs-zip)"
